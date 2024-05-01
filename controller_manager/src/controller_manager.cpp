@@ -370,6 +370,8 @@ void ControllerManager::init_resource_manager(const std::string & robot_descript
   // TODO(destogl): manage this when there is an error - CM should not die because URDF is wrong...
   resource_manager_->load_urdf(robot_description);
 
+  robot_description_ = robot_description;
+
   // Get all components and if they are not defined in parameters activate them automatically
   auto components_to_activate = resource_manager_->get_components_status();
 
@@ -1292,6 +1294,8 @@ controller_interface::ControllerInterfaceBaseSharedPtr ControllerManager::add_co
       get_logger(), "Could not initialize the controller named '%s'", controller.info.name.c_str());
     return nullptr;
   }
+
+  controller.c->set_robot_description(robot_description_);
 
   executor_->add_node(controller.c->get_node()->get_node_base_interface());
   to.emplace_back(controller);

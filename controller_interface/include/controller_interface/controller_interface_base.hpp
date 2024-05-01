@@ -120,6 +120,11 @@ public:
         .allow_undeclared_parameters(true)
         .automatically_declare_parameters_from_overrides(true));
 
+  virtual void set_robot_description(const std::string& robot_description)
+  {
+    robot_description_ = robot_description;
+  }
+
   /// Custom configure method to read additional parameters for controller-nodes
   /*
    * Override default implementation for configure of LifecycleNode to get parameters.
@@ -222,6 +227,7 @@ protected:
   std::vector<hardware_interface::LoanedCommandInterface> command_interfaces_;
   std::vector<hardware_interface::LoanedStateInterface> state_interfaces_;
   unsigned int update_rate_ = 0;
+  std::string robot_description_;
 
 private:
   std::shared_ptr<rclcpp_lifecycle::LifecycleNode> node_;

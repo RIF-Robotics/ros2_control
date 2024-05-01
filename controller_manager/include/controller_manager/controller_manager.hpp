@@ -195,6 +195,8 @@ public:
   unsigned int get_update_rate() const;
 
 protected:
+  std::string robot_description_;
+
   CONTROLLER_MANAGER_PUBLIC
   void init_services();
 

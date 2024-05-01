@@ -339,6 +339,9 @@ void ControllerManager::robot_description_callback(const std_msgs::msg::String &
     get_logger(), "'Content of robot description file: %s", robot_description.data.c_str());
   // TODO(mamueluth): errors should probably be caught since we don't want controller_manager node
   // to die if a non valid urdf is passed. However, should maybe be fine tuned.
+
+  set_parameter(rclcpp::Parameter("robot_description", robot_description.data));
+
   try
   {
     if (resource_manager_->is_urdf_already_loaded())
